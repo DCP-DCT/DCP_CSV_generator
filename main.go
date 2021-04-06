@@ -9,14 +9,6 @@ import (
 	"strings"
 )
 
-type RunConfig struct {
-	N int `json:"n"`
-	L int `json:"l"`
-	DT int `json:"dt"`
-	TTL int `json:"ttl"`
-	T int `json:"t"`
-}
-
 func main() {
 
 	fn := os.Args[1]
@@ -85,7 +77,7 @@ func getDiagnosisData(nodes []CtNode, run RunConfig) [][]string {
 			strconv.Itoa(node.Diagnosis.NumberOfPkMatches),
 			strconv.Itoa(node.Diagnosis.NumberOfInternalUpdates),
 			strconv.Itoa(node.Diagnosis.NumberOfPacketsDropped)},
-			)
+		)
 	}
 
 	return data
