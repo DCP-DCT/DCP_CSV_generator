@@ -11,6 +11,7 @@ type Diagnosis struct {
 }
 
 type CtNode struct {
+	BridgeNode bool `json:"bridge_node"`
 	Diagnosis *Diagnosis `json:"diagnosis"`
 }
 
@@ -21,4 +22,5 @@ type RunConfig struct {
 	DT  int `json:"dt"`
 	TTL int `json:"ttl"`
 	T   int `json:"t"`
+	ED  int `json:"ed"`
 }
