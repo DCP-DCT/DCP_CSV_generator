@@ -15,6 +15,7 @@ type CtNode struct {
 }
 
 type RunConfig struct {
+	Run int `json:"run"`
 	N   int `json:"n"`
 	L   int `json:"l"`
 	DT  int `json:"dt"`

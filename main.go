@@ -6,36 +6,42 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
-	"strings"
 )
 
 func main() {
 
-	fn := os.Args[1]
-	file, err := os.Open(fn)
-	if err != nil {
-		panic(err.Error())
-	}
-
-	defer file.Close()
-
 	run := RunConfig{}
-	err = json.Unmarshal([]byte(os.Args[2]), &run)
+	err := json.Unmarshal([]byte(os.Args[1]), &run)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	data, _ := ioutil.ReadAll(file)
+	fileNames := os.Args[2:]
 
 	var nodes []CtNode
-	err = json.Unmarshal(data, &nodes)
-	if err != nil {
-		panic(err.Error())
+	for _, fn := range fileNames {
+		file, err := os.Open(fn)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		data, _ := ioutil.ReadAll(file)
+
+		var nodesInFile []CtNode
+		err = json.Unmarshal(data, &nodesInFile)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		nodes = append(nodes, nodesInFile...)
+
+		err = file.Close()
+		if err != nil {
+			panic(err.Error())
+		}
 	}
 
-	parts := strings.Split(fn, ".")
-
-	output, err := os.Create(parts[0] + ".csv")
+	output, err := os.Create("dcp-run-" + strconv.Itoa(run.Run) + ".csv")
 	if err != nil {
 		panic(err.Error())
 	}
