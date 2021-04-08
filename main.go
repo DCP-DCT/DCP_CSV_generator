@@ -51,7 +51,7 @@ func main() {
 	w := csv.NewWriter(output)
 	defer w.Flush()
 
-	headers := []string{"N", "L", "DT", "TTL", "T", "ED", "B", "EU", "R", "D", "PK", "IU", "PD"}
+	headers := []string{"N", "L", "DT", "TTL", "T", "ED", "BN", "B", "EU", "R", "D", "PK", "IU", "PD"}
 	values := getDiagnosisData(nodes, run)
 
 	if err := w.Write(headers); err != nil {
@@ -77,6 +77,7 @@ func getDiagnosisData(nodes []CtNode, run RunConfig) [][]string {
 			strconv.Itoa(run.TTL),
 			strconv.Itoa(run.T),
 			strconv.Itoa(run.ED),
+			strconv.FormatBool(node.BridgeNode),
 			strconv.Itoa(node.Diagnosis.NumberOfBroadcasts),
 			strconv.Itoa(node.Diagnosis.NumberOfUpdates),
 			strconv.Itoa(node.Diagnosis.NumberOfRejectedDueToThreshold),
